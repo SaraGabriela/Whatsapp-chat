@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Prueba</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="https://cmd.socket.io-1.4.5.js"></script>
+</head>
+</head>
+<body>
+<div id="bienvenida">
+	<h3>Hola por favor ingresa tu nombre</h3>
+	<input type="text" id="nombre"></input>
+	<button onclick="guardarnombre">Entrar</button>
+</div>
+<div id="chat">
+<h1>Jelou</h1>
+<input type="text" placeholder="Escribe cosas geniales"id="mensaje"></input>
+<button onclick="enviarMensaje()">Envía!</button>
+<button onclick="limpiarmensajes">Limpiar mensajes</button>
+<ul id="lista_mensajes"></ul>
+</div>
+<script type="text/javascript">
+	var socket = io('/');
+	var nombre;
+
+	function guardarnombre(){
+		nombre=$('#bienvenida')
+	}
+
+
+	function enviarMensaje(){
+		socket.emit('chat', $('#mensaje').val() );
+	}
+
+	function limpiarmensajes(){
+		$('#lista_mensajes').html('');
+	}
+
+	socket.on('nuevo_mensaje', function (_msg){
+		$('#lista_mensajes').append('<li>' + _msg + '</li>');
+	});
+	
+
+	
+</script>
+</body>
+</html>
