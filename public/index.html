@@ -1,48 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-	<title>Prueba</title>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="https://cmd.socket.io-1.4.5.js"></script>
-</head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<style>
+		#bienvenida
+		{
+			border: 1px solid #CCC;
+			margin: 10px;
+		}
+		#chat
+		{
+			margin: 10px;
+			border: 1px solid #CCC;
+			display: none;
+		}
+	</style>
 </head>
 <body>
-<div id="bienvenida">
-	<h3>Hola por favor ingresa tu nombre</h3>
-	<input type="text" id="nombre"></input>
-	<button onclick="guardarnombre">Entrar</button>
-</div>
-<div id="chat">
-<h1>Jelou</h1>
-<input type="text" placeholder="Escribe cosas geniales"id="mensaje"></input>
-<button onclick="enviarMensaje()">Envía!</button>
-<button onclick="limpiarmensajes">Limpiar mensajes</button>
-<ul id="lista_mensajes"></ul>
-</div>
-<script type="text/javascript">
-	var socket = io('/');
-	var nombre;
+	<div id="bienvenida" class="well">
+		<h3>Bienvenido,quien eres?</h3>
+		<input type="text" id="nombre" class="form-control">
+		<button onclick="guardarNombre()">Entrar</button>
+	</div>
 
-	function guardarnombre(){
-		nombre=$('#bienvenida')
-	}
+	<div id="chat" class="well">
+		<h1>Jelou</h1>
+		<p>Solo puedes enviar mensajes!</p>
+		<input type="text" id="mensaje" class="form-control">
+		<button onclick="enviarMensaje()">Enviar!</button>
+		<button onclick="limpiarMensajes()">Limpiar!</button>
+		<ul id="lista_mensajes" class="list-group"></ul>
+
+		
+	</div>
 
 
-	function enviarMensaje(){
-		socket.emit('chat', $('#mensaje').val() );
-	}
+	<script>
+		var socket = io('/');
+		var nombre;
 
-	function limpiarmensajes(){
-		$('#lista_mensajes').html('');
-	}
+		function guardarNombre()
+		{
+			nombre = $('#nombre').val();
+			$('#bienvenida').hide();
+			$('#chat').show();
+		}
 
-	socket.on('nuevo_mensaje', function (_msg){
-		$('#lista_mensajes').append('<li>' + _msg + '</li>');
-	});
-	
+		function enviarMensaje()
+		{
+			socket.emit('chat', "<span class='label label-danger'>" +  nombre + "</span> : " + $('#mensaje').val()  );
+			$('#mensaje').val('');
+			$('#mensaje').focus();
+		}
 
-	
-</script>
+		function limpiarMensajes()
+		{
+			$('#lista_mensajes').html('');
+		}
+
+		socket.on('nuevo_mensaje', function (_msg)
+		{
+			$('#lista_mensajes').append('<li class="list-group-item">' + _msg + '</li>');
+		});
+
+	</script>
 </body>
 </html>
+
+

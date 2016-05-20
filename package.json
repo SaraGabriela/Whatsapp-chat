@@ -2,7 +2,7 @@
   "name": "whatsapp",
   "version": "1.0.0",
   "description": "chat",
-  "main": "package.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +18,6 @@
   "homepage": "https://github.com/SaraGabriela/Whatsapp-chat#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "socket.io":"^1.4.6"
+    "socket.io": "^1.4.6"
   }
 }
