@@ -14,6 +14,8 @@
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<style>
 	*{outline: solid 1px rgba(255,0,0,0.3)}
+		.fondo{background-color: #009688; width: 100%; height: 100px; z-index: -200; position: absolute; top: 0px;}
+		#nombres_usuarios img:first-child{width: 50px;}
 		#bienvenida
 		{
 			border: 1px solid #CCC;
@@ -24,11 +26,12 @@
 			margin: 10px;
 			border: 1px solid #CCC;
 			display: none;
-		}
+				}
 		.prueb div{ height: 300px; }
 	</style>
 </head>
 <body>
+	<div class="fondo"></div>
 	<div id="bienvenida" class="well">
 		<h3>Hola, por favor ingresa tu nombre para entrar al chat</h3>
 		<input type="text" id="nombre" class="form-control">
@@ -38,8 +41,10 @@
 	<div id="chat" class="well"> <!--Empieza chat-->
 
 	<div class=prueb>
-		<div class="col-md-4" id="nombres"></div>
-		<div class="col-md-8"></div>
+		<div class="col-md-3" id="nombres_usuarios">
+			<img class="float-left" src="https://image.freepik.com/iconos-gratis/la-imagen-del-usuario-con-el-fondo-negro_318-34564.jpg">
+		</div>
+		<div class="col-md-9"></div>
 	</div>
 		<h1>Bienvenid@ a mi super chat</h1>
 		<p>Solo puedes envíar mensajes, en una siguiente versión también lo verás!!</p>
