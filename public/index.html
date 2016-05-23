@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>Whatsapp Web</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="shortcut icon" href="image/favicon.png" type="image/png">
+	  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CRoboto:300,400,500" media="all">
+
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<style>
+	*{outline: solid 1px rgba(255,0,0,0.3)}
 		#bienvenida
 		{
 			border: 1px solid #CCC;
@@ -18,25 +25,31 @@
 			border: 1px solid #CCC;
 			display: none;
 		}
+		.prueb div{ height: 300px; }
 	</style>
 </head>
 <body>
 	<div id="bienvenida" class="well">
-		<h3>Bienvenido,quien eres?</h3>
+		<h3>Hola, por favor ingresa tu nombre para entrar al chat</h3>
 		<input type="text" id="nombre" class="form-control">
 		<button onclick="guardarNombre()">Entrar</button>
 	</div>
 
-	<div id="chat" class="well">
-		<h1>Jelou</h1>
-		<p>Solo puedes enviar mensajes!</p>
+	<div id="chat" class="well"> <!--Empieza chat-->
+
+	<div class=prueb>
+		<div class="col-md-4" id="nombres"></div>
+		<div class="col-md-8"></div>
+	</div>
+		<h1>Bienvenid@ a mi super chat</h1>
+		<p>Solo puedes envíar mensajes, en una siguiente versión también lo verás!!</p>
 		<input type="text" id="mensaje" class="form-control">
-		<button onclick="enviarMensaje()">Enviar!</button>
-		<button onclick="limpiarMensajes()">Limpiar!</button>
+		<button onclick="enviarMensaje()">Enviar mensaje</button>
+		<button onclick="limpiarMensajes()">Limpiar mensajes</button>
 		<ul id="lista_mensajes" class="list-group"></ul>
 
 		
-	</div>
+	</div> <!--Termina chat-->
 
 
 	<script>
@@ -70,5 +83,3 @@
 	</script>
 </body>
 </html>
-
-

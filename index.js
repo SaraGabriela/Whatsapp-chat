@@ -9,7 +9,7 @@ app.get('/', function(req, res){
 
 
 io.on('connection', function(socket){
-	console.log('Alguien se conectó!');
+	console.log('Tenemos una nueva victima!!');
 
 	socket.on('chat', function(_msg){
 		io.emit('nuevo_mensaje', _msg);
@@ -18,6 +18,9 @@ io.on('connection', function(socket){
 });
 
 
+
+
+
 http.listen(8080, function () {
-	console.log('Esta corriendo!');
+	console.log('Muy bien!, eres un crack, sabes trabajar con node JS');
 });
