@@ -8,52 +8,102 @@
 	  	<link rel="shortcut icon" href="image/favicon.png" type="image/png">
 	  	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CRoboto:300,400,500" media="all">
 
-
+	<link href='https://fonts.googleapis.com/css?family=Lobster+Two:700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<style>
+	
+
+.caja::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.caja::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.caja::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #555555;
+}
 
 
 	*{outline: solid 1px rgba(255,0,0,0.3)}
-		.fondo{background-color: #009688; width: 100%; height: 100px; z-index: -200; position: absolute; top: 0px;}
-		.usuario {width: 50px;}
-		.encabezado {height: 60px;}
-		.encabezado i {margin-right: 20px;}
-		.usuarios-conectados{height: 300px; overflow-y:scroll;}
-		.mensajes-enviados{height: 280px; overflow-y:scroll;}
+	
+	h1,h2,h3,h4,h5,h6{font-family: 'Lobster Two'; font-weight: 700;}
+	p{font-family: 'Open Sans', sans-serif;}
 
+		.fondo{background-image:url('https://s-media-cache-ak0.pinimg.com/236x/de/3e/78/de3e783478b78f1699dfe1f574d60cbc.jpg'); background-repeat: repeat; width: 100%; height: 100%; z-index: -200; position: absolute; top: 0px; left:0px;}
+		.fondo+div{background-color: rgba(255,255,255,0.7); padding: 30px; border:8px solid #000; outline: 14px solid #319177;}
+		.fondo+div h1{font-size: 50px;}
+		.fondo+div p{font-size: 25px;}
+
+		.usuario {width: 50px;}
+		.encabezado>div:first-child{width: 50px; height: 50px; overflow: hidden; border-radius: 100%; display: inline-block; margin-left: 20px; vertical-align: top;}
+		.encabezado { background-color: #fff; padding: 10px;}
+		.encabezado i {margin-right: 20px;}
+		.encabezado p{max-width: 200px; display: inline-block; margin-left: 10px; vertical-align: top;}
+		.lab{font-size: 20px; font-weight: 600;}
+		.usuarios-conectados{height: 335px; overflow-y:scroll;}
+		.mensajes-enviados{height: 280px; overflow-y:scroll;}
+		
+		.nombre-de-usuario{font-family: 'Lobster Two'; font-weight:700; font-size: 20px; width: 140px; overflow: auto; text-align: center;}
+		.caja{background-image:url('https://s-media-cache-ak0.pinimg.com/236x/de/3e/78/de3e783478b78f1699dfe1f574d60cbc.jpg'); background-repeat: repeat; margin-top: 10px;}
+		#chat>div>div{border:3px solid #000;}
+		
+		.escribe{margin-top: 10px;}
 		#bienvenida
 		{
 			border: 1px solid #CCC;
-			margin: 10px;
+			max-width: 700px;
+			margin:auto;
+			margin-top: 200px;
 		}
 		#chat
 		{
-			margin: 10px;
+			
+			padding: 70px 100px;
+			width:100%;
+			height: 800px;
 			display: none;
+			background-color: #319177;
 				}
+
+
 		
 	</style>
 </head>
 <body>
-	<div class="fondo"></div>
-	<div id="bienvenida" class="well">
-		<h3>Hola, por favor ingresa tu nombre para entrar al chat</h3>
+	
+	<div id="bienvenida" class="text-center">
+		<div class="fondo"></div>
+		<div>
+		<h1>Bienvenido!</h1>
+		<p>Por favor ingresa tu nombre</p>
 		<input type="text" id="nombre" class="form-control">
-		<button class="uno" onclick="guardarNombre()">Entrar</button>
+		
+		</div>
 	</div>
 
 	<div id="chat" > <!--Empieza chat-->
-
-	<div class="col-md-12">
+		
+		
 		<div class="col-md-4">
 		<div class="encabezado">
+		<div>
 			<img class="float-left usuario" src="https://image.freepik.com/iconos-gratis/la-imagen-del-usuario-con-el-fondo-negro_318-34564.jpg">
+		</div>	
+		<p class="nombre-de-usuario"> </p>
 			<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
 			<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>			
 		</div>	
-		<div class="usuarios-conectados"> <!--comienza usuarios conectados-->
+		<div class="usuarios-conectados caja"> <!--comienza usuarios conectados-->
 				
 			
 
@@ -61,20 +111,22 @@
 		</div>
 		<div class="col-md-8">
 			<div class="encabezado">
+			<div>
 				<img class="usuario"src="http://www.mediafire.com/convkey/3c52/lu1gm9z60qs2929zg.jpg?size_id=5">
+			</div>	
+				<p class="lab">Laboratoria Perú</p>
 				<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
 			    <i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
 			</div>
-			<div class="mensajes-enviados">
+			<div class="mensajes-enviados caja">
 				<ul id="lista_mensajes" class="list-group"></ul>
 			</div>
 			<div class="escribe">
 		<input type="text" id="mensaje" class="form-control">
-		<button onclick="enviarMensaje()">Enviar mensaje</button>
-		<button onclick="limpiarMensajes()">Limpiar mensajes</button>
+		
 			</div>
 		</div>
-	</div>		
+					
 				
 	</div> <!--Termina chat-->
 
@@ -92,11 +144,32 @@
 			$('#bienvenida').hide();
 			$('#chat').show();
 			usuario = $('#nombre').val();	
-				
+			$('p.nombre-de-usuario').html(nombre);
+	
 		}
 
+		  $(document).ready(function() 
+            {    
+           
+              $('#nombre').keypress(function(e){   
+               if(e.which == 13){      
+                 guardarNombre();      
+               }   
+              });
+               $('#mensaje').keypress(function(e){   
+               if(e.which == 13){      
+                 enviarMensaje();      
+               }   
+              });    
+              
+              }); 
+
+		  function nombreUsuario(){
+
+		  	socket.emit
+		  }
 		
-	
+
 		function enviarMensaje()
 		{
 			socket.emit('chat', "<span class='label label-danger'>" +  nombre + "</span> : " + $('#mensaje').val()  );
@@ -104,10 +177,7 @@
 			$('#mensaje').focus();
 		}
 
-		function limpiarMensajes()
-		{
-			$('#lista_mensajes').html('');
-		}
+		
 
 		socket.on('nuevo_mensaje', function (_msg)
 		{
