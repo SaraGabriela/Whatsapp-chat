@@ -40,9 +40,9 @@
 	p{font-family: 'Open Sans', sans-serif;}
 
 		.fondo{background-image:url('https://s-media-cache-ak0.pinimg.com/236x/de/3e/78/de3e783478b78f1699dfe1f574d60cbc.jpg'); background-repeat: repeat; width: 100%; height: 100%; z-index: -200; position: absolute; top: 0px; left:0px;}
-		.fondo+div{background-color: rgba(255,255,255,0.7); padding: 30px; border:8px solid #000; outline: 14px solid #319177;}
-		.fondo+div h1{font-size: 50px;}
-		.fondo+div p{font-size: 25px;}
+		.inicio{background-color: rgba(255,255,255,0.7); padding: 30px; border:8px solid #000; outline: 14px solid #319177;}
+		.inicio h1{font-size: 50px;}
+		.inicio p{font-size: 25px;}
 
 		.usuario {max-width: 50px;}
 		.encabezado>div:first-child{max-width: 50px; min-height: 50px; overflow: hidden; border-radius: 100%; display: inline-block; margin-left: 20px; vertical-align: top;}
@@ -50,11 +50,18 @@
 		.encabezado i {margin-right: 20px;}
 		.encabezado p{max-width: 200px; display: inline-block; margin-left: 10px; vertical-align: top;}
 		.lab{font-size: 20px; font-weight: 600;}
-		.usuarios-conectados{height: 335px; overflow-y:scroll;}
-		.mensajes-enviados{height: 280px; overflow-y:scroll;}
+		.usuarios-conectados{height: 385px; overflow-y:scroll;}
+		.mensajes-enviados{height: 360px; overflow-y:scroll; margin-top: 10px; padding: 10px;}
+		
+		.mensajes-enviados, .mensajes-enviados #lista_mensajes, .usuarios-conectados, #lista_conectados
+		{
+		    transform:rotateX(180deg);
+		    -ms-transform:rotateX(180deg); /* IE 9 */
+		    -webkit-transform:rotateX(180deg); /* Safari and Chrome */
+		}
 		
 		.nombre-de-usuario{font-family: 'Lobster Two'; font-weight:700; font-size: 20px; max-width: 140px; overflow: auto; text-align: center;}
-		.caja{background-image:url('https://s-media-cache-ak0.pinimg.com/236x/de/3e/78/de3e783478b78f1699dfe1f574d60cbc.jpg'); background-repeat: repeat; margin-top: 10px;}
+		.caja{background-image:url('https://s-media-cache-ak0.pinimg.com/236x/de/3e/78/de3e783478b78f1699dfe1f574d60cbc.jpg'); background-repeat: repeat;}
 		#chat>div>div{border:3px solid #000;}
 		
 		.escribe{margin-top: 10px;}
@@ -74,7 +81,14 @@
 			display: none;
 			background-color: #319177;
 				}
-		.estilo-usuarios{font-family: 'Open Sans' !important; font-weight: 500 !important; margin:10px 8px; text-align: center; border:3px solid #000;}
+		.c_negra{background-color: #000; color:#fff; font-family: 'Open Sans'; font-size: 15px; margin-top: 10px;}		
+		.estilo-usuarios{font-family: 'Open Sans' ; font-weight: 700; margin:10px 8px; text-align: center; border:3px solid #000; font-style: bold; background-color: rgba(255,255,255,0.8); font-size: 20px;}
+
+	.mensaje-chat {background-color: rgba(255,255,255,0.8); border:1px solid #333333; padding: 10px; border-radius: 5px; margin-top: 8px;}
+	.nombre-en-chat {background-color: #000; color:#fff; font-size: 17px;}
+	
+	.elige{ margin:auto; margin-bottom: 80px;}	
+	.rojo{width: 20px; height: 20px; border-radius: 100%; background-color: #ff0000;}
 
 		
 	</style>
@@ -83,17 +97,18 @@
 	
 	<div id="bienvenida" class="text-center">
 		<div class="fondo"></div>
-		<div>
+		<div class="inicio">
 		<h1>Bienvenido!</h1>
 		<p>Por favor ingresa tu nombre</p>
 		<input type="text" id="nombre" class="form-control">
-		
 		</div>
-	</div>
+		</div>
 
 	<div id="chat" > <!--Empieza chat-->
 		
-		
+		<div>
+			<div class="rojo"></div>
+		</div>
 		<div class="col-md-4">
 		<div class="encabezado">
 		<div>
@@ -103,6 +118,7 @@
 			<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
 			<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>			
 		</div>	
+		<div class="c_negra text-center">Mira quien se conectó!</div>
 		<div class="usuarios-conectados caja"> <!--comienza usuarios conectados-->
 				
 			<ul id="lista_conectados" class="list-group"></ul>
@@ -122,7 +138,7 @@
 				<ul id="lista_mensajes" class="list-group"></ul>
 			</div>
 			<div class="escribe">
-		<input type="text" id="mensaje" class="form-control">
+		<input type="text" id="mensaje" class="form-control" placeholder="Escribe tus mensajes aquí...">
 		
 			</div>
 		</div>
@@ -134,9 +150,7 @@
 	<script>
 		var socket = io('/');
 		var nombre;
-		var usuarios= 0;
-		var us_conec = [];
-		
+					
 
 		
 
@@ -147,8 +161,7 @@
 			$('#chat').show();
 			usuario = $('#nombre').val();	
 			$('p.nombre-de-usuario').html(nombre);
-						
-
+			
 			
 		}
 
@@ -175,31 +188,45 @@
                $('#mensaje').keypress(function(e){   
                if(e.which == 13){      
                  enviarMensaje();      
-               }   
-              });    
+               } 
               
-              }); 
 
-				
+              });   
+
+                        
+              }); 
+		
+
+
+
+		// var main=function(){
+		//	$(".rojo").on("click", function() {
+		//	    $(".nombre-en-chat").css("background", "red");
+		//	})
+		//}
+		//$(document).ready(main)	
+
+		
 
 		function enviarMensaje()
 		{
-			socket.emit('chat', "<span class='label label-danger'>" +  nombre + "</span> : " + $('#mensaje').val()  );
+			socket.emit('chat', "<span class='label nombre-en-chat'>" +  nombre + "</span> : " + $('#mensaje').val()  );
 			$('#mensaje').val('');
 			$('#mensaje').focus();
 		}
 
 		socket.on('alguien_conectado',function(_user){
-			$('#lista_conectados').append('<li class="list-group-item estilo-usuarios">'+ _user +'</li>');
+			$('#lista_conectados').append('<li class=" estilo-usuarios">'+ _user +'</li>');
 
 		});
 
 		socket.on('nuevo_mensaje', function (_msg)
 		{
-			$('#lista_mensajes').append('<li class="list-group-item">' + _msg + '</li>');
+			$('#lista_mensajes').append('<li class="mensaje-chat">' + _msg + '</li>');
 
 
 		});
+
 
 	</script>
 </body>
