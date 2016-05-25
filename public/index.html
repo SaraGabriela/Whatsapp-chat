@@ -74,7 +74,7 @@
 			display: none;
 			background-color: #319177;
 				}
-
+		.estilo-usuarios{font-family: 'Open Sans' !important; font-weight: 500 !important; margin:10px 8px; text-align: center; border:3px solid #000;}
 
 		
 	</style>
@@ -156,7 +156,7 @@
 
 		  function nombreUsuario(){
 
-		  	socket.emit('conectado',"<span>"+ $('#nombre').val() +"</span>")
+		  	socket.emit('conectado','<span>'+ $('#nombre').val() +'</span>');
 		  	$(usuario).val('');
 		  	$(usuario).focus();
 		  }
@@ -190,7 +190,7 @@
 		}
 
 		socket.on('alguien_conectado',function(_user){
-			$('#lista_conectados').append('<li class="list-group-item">'+ _user +'</li>');
+			$('#lista_conectados').append('<li class="list-group-item estilo-usuarios">'+ _user +'</li>');
 
 		});
 
