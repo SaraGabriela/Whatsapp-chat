@@ -14,7 +14,9 @@ io.on('connection', function(socket){
 	socket.on('chat', function(_msg){
 		io.emit('nuevo_mensaje', _msg);
 	});
-	
+	socket.on('conectado',function(_user){
+		io.emit('alguien_conectado', _user);
+	}); 
 	
 
 });

@@ -34,7 +34,7 @@
 }
 
 
-	*{outline: solid 1px rgba(255,0,0,0.3)}
+	/**{outline: solid 1px rgba(255,0,0,0.3)}*/
 	
 	h1,h2,h3,h4,h5,h6{font-family: 'Lobster Two'; font-weight: 700;}
 	p{font-family: 'Open Sans', sans-serif;}
@@ -44,8 +44,8 @@
 		.fondo+div h1{font-size: 50px;}
 		.fondo+div p{font-size: 25px;}
 
-		.usuario {width: 50px;}
-		.encabezado>div:first-child{width: 50px; height: 50px; overflow: hidden; border-radius: 100%; display: inline-block; margin-left: 20px; vertical-align: top;}
+		.usuario {max-width: 50px;}
+		.encabezado>div:first-child{max-width: 50px; min-height: 50px; overflow: hidden; border-radius: 100%; display: inline-block; margin-left: 20px; vertical-align: top;}
 		.encabezado { background-color: #fff; padding: 10px;}
 		.encabezado i {margin-right: 20px;}
 		.encabezado p{max-width: 200px; display: inline-block; margin-left: 10px; vertical-align: top;}
@@ -53,7 +53,7 @@
 		.usuarios-conectados{height: 335px; overflow-y:scroll;}
 		.mensajes-enviados{height: 280px; overflow-y:scroll;}
 		
-		.nombre-de-usuario{font-family: 'Lobster Two'; font-weight:700; font-size: 20px; width: 140px; overflow: auto; text-align: center;}
+		.nombre-de-usuario{font-family: 'Lobster Two'; font-weight:700; font-size: 20px; max-width: 140px; overflow: auto; text-align: center;}
 		.caja{background-image:url('https://s-media-cache-ak0.pinimg.com/236x/de/3e/78/de3e783478b78f1699dfe1f574d60cbc.jpg'); background-repeat: repeat; margin-top: 10px;}
 		#chat>div>div{border:3px solid #000;}
 		
@@ -105,7 +105,7 @@
 		</div>	
 		<div class="usuarios-conectados caja"> <!--comienza usuarios conectados-->
 				
-			
+			<ul id="lista_conectados" class="list-group"></ul>
 
 		</div>  <!--termina usuarios conectados-->
 		</div>
@@ -134,6 +134,8 @@
 	<script>
 		var socket = io('/');
 		var nombre;
+		var usuarios= 0;
+		var us_conec = [];
 		
 
 		
@@ -145,15 +147,29 @@
 			$('#chat').show();
 			usuario = $('#nombre').val();	
 			$('p.nombre-de-usuario').html(nombre);
-	
+						
+
+			
 		}
+
+		//$('#lista_conectados').append('<li class="list-group-item">'+ nombre +'</li>');
+
+		  function nombreUsuario(){
+
+		  	socket.emit('conectado',"<span>"+ $('#nombre').val() +"</span>")
+		  	$(usuario).val('');
+		  	$(usuario).focus();
+		  }
+
+		  
 
 		  $(document).ready(function() 
             {    
            
               $('#nombre').keypress(function(e){   
                if(e.which == 13){      
-                 guardarNombre();      
+                 guardarNombre(); 
+                 nombreUsuario();     
                }   
               });
                $('#mensaje').keypress(function(e){   
@@ -164,11 +180,7 @@
               
               }); 
 
-		  function nombreUsuario(){
-
-		  	socket.emit
-		  }
-		
+				
 
 		function enviarMensaje()
 		{
@@ -177,7 +189,10 @@
 			$('#mensaje').focus();
 		}
 
-		
+		socket.on('alguien_conectado',function(_user){
+			$('#lista_conectados').append('<li class="list-group-item">'+ _user +'</li>');
+
+		});
 
 		socket.on('nuevo_mensaje', function (_msg)
 		{
