@@ -9,7 +9,7 @@ app.get('/', function(req, res){
 
 
 io.on('connection', function(socket){
-	console.log('Tenemos una nueva victima!!');
+	console.log('Al fin se conectó!');
 
 	socket.on('chat', function(_msg){
 		io.emit('nuevo_mensaje', _msg);
@@ -17,7 +17,9 @@ io.on('connection', function(socket){
 	socket.on('conectado',function(_user){
 		io.emit('alguien_conectado', _user);
 	}); 
+
 	
+
 
 });
 
