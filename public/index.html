@@ -91,6 +91,8 @@
 	.rojo{width: 20px; height: 20px; border-radius: 100%; background-color: #ff0000;}
 
 	button{display: none; margin:auto; background-color: #000; color:#fff; margin-top: 15px; border-radius: 5px; font-family: 'Open Sans'; padding: 8px;}
+	
+	.facebook{background-color:#fff; margin-top: 20px; padding: 8px; text-align: center; outline: 4px solid #fff;}
 
 		@media screen and (max-width: 600px){
 			#bienvenida{margin-top:120px; max-width: 90%;}
@@ -156,11 +158,34 @@
 		
 			</div>
 			<button onclick="enviarMensaje()">Enviar mensaje</button>
+			<div class=facebook>			
+		<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+</div>
 		</div>
-					
-				
+		
 	</div> <!--Termina chat-->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1701390036777057',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 	<script>
 		var socket = io('/');
