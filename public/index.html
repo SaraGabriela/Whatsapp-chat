@@ -75,7 +75,7 @@
 		#chat
 		{
 			
-			padding: 70px 100px;
+			padding: 40px 30px;
 			width:100%;
 			height: 800px;
 			display: none;
@@ -90,7 +90,20 @@
 	.elige{ margin:auto; margin-bottom: 80px;}	
 	.rojo{width: 20px; height: 20px; border-radius: 100%; background-color: #ff0000;}
 
-		
+	button{display: none; margin:auto; background-color: #000; color:#fff; margin-top: 15px; border-radius: 5px; font-family: 'Open Sans'; padding: 8px;}
+
+		@media screen and (max-width: 600px){
+			#bienvenida{margin-top:120px; max-width: 90%;}
+			.inicio h1{font-size: 40px;}
+			.inicio p{font-size: 20px;}
+			.inicio{padding: 18px; border:8px solid #000; outline: 14px solid #319177;}
+			button {display: block;}
+
+			.encabezado i ,.c_negra, .usuarios-conectados, .caja-lab{display: none;}
+
+			#chat {padding: 20px 5px;}
+			
+		}
 	</style>
 </head>
 <body>
@@ -101,21 +114,22 @@
 		<h1>Bienvenido!</h1>
 		<p>Por favor ingresa tu nombre</p>
 		<input type="text" id="nombre" class="form-control">
+		<button onclick="guardarNombre()">Entrar</button>
 		</div>
 		</div>
 
 	<div id="chat" > <!--Empieza chat-->
 		
-		<div>
+		<!--<div>
 			<div class="rojo"></div>
-		</div>
+		</div>-->
 		<div class="col-md-4">
 		<div class="encabezado">
 		<div>
 			<img class="float-left usuario" src="https://image.freepik.com/iconos-gratis/la-imagen-del-usuario-con-el-fondo-negro_318-34564.jpg">
 		</div>	
 		<p class="nombre-de-usuario"> </p>
-			<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
+			<i class="glyphicon glyphicon-option-vertical pull-right" aria-hidden="true"></i>
 			<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>			
 		</div>	
 		<div class="c_negra text-center">Mira quien se conectó!</div>
@@ -126,12 +140,12 @@
 		</div>  <!--termina usuarios conectados-->
 		</div>
 		<div class="col-md-8">
-			<div class="encabezado">
+			<div class="encabezado caja-lab">
 			<div>
 				<img class="usuario"src="http://www.mediafire.com/convkey/3c52/lu1gm9z60qs2929zg.jpg?size_id=5">
 			</div>	
 				<p class="lab">Laboratoria Perú</p>
-				<i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
+				<i class="glyphicon glyphicon-option-vertical pull-right" aria-hidden="true"></i>
 			    <i class="glyphicon glyphicon-list pull-right" aria-hidden="true"></i>
 			</div>
 			<div class="mensajes-enviados caja">
@@ -141,6 +155,7 @@
 		<input type="text" id="mensaje" class="form-control" placeholder="Escribe tus mensajes aquí...">
 		
 			</div>
+			<button onclick="enviarMensaje()">Enviar mensaje</button>
 		</div>
 					
 				
